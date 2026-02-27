@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/event_create_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:text="Add New Event"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Title -->
+        <EditText
+            android:id="@+id/inputTitle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Enter event title"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <!-- Date -->
+        <EditText
+            android:id="@+id/inputDate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="mm/dd/yyyy"
+            android:focusable="false"
+            android:clickable="true"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <!-- Time -->
+        <EditText
+            android:id="@+id/inputTime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="--:--"
+            android:focusable="false"
+            android:clickable="true"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <!-- Location -->
+        <EditText
+            android:id="@+id/inputLocation"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Enter location"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginTop="12dp" />
+
+        <!-- Description -->
+        <EditText
+            android:id="@+id/inputDescription"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Add event description"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
+            android:gravity="top"
+            android:inputType="textMultiLine" />
+
+        <!-- Color chips -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/color_chip_blue"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/color_chip_green"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/color_chip_purple"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/color_chip_orange"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/color_chip_red"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/color_chip_pink"/>
+        </LinearLayout>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/saveEventButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Save Event"
+            android:textColor="@color/white"
+            android:background="@drawable/action_button_bg"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

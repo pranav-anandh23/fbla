@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FB">
+
+    <!-- Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingBottom="72dp">
+
+        <TextView
+            android:text="Resources"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Search resources..."
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Filters -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/filterAll"
+                android:text="All"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/filter_chip"
+                android:backgroundTint="@color/blue"
+                android:textColor="@android:color/white"/>
+
+            <Button
+                android:id="@+id/filterStudy"
+                android:text="Study Guide"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/filter_chip"
+                android:backgroundTint="@color/blue"
+                android:textColor="@android:color/white"/>
+
+            <Button
+                android:id="@+id/filterVideo"
+                android:text="Video"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/filter_chip"
+                android:backgroundTint="@color/blue"
+                android:textColor="@android:color/white"/>
+
+            <Button
+                android:id="@+id/filterRubric"
+                android:text="Rubric"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/filter_chip"
+                android:backgroundTint="@color/blue"
+                android:textColor="@android:color/white"
+                />
+        </LinearLayout>
+
+        <!-- Recycler -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resourcesRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <!-- Bottom Nav -->
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

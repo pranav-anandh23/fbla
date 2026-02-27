@@ -1,0 +1,33 @@
+{
+  "featured": {
+    "title": "2026 SLC General Information",
+    "category": "Announcements",
+    "date": "December 5, 2025",
+    "image": "slc_featured.jpg",
+    "description": "2026 State Leadership Conference promotional video, registration, lodging, and calendar information.",
+    "url": "https://www.pafbla.org"
+  },
+  "recent": [
+    {
+      "title": "2026 SLC Competition Schedules",
+      "category": "Competitions",
+      "date": "December 5, 2025",
+      "image": "slc_competitions.jpg",
+      "url": "https://www.pafbla.org"
+    },
+    {
+      "title": "2026 SLC Special Information",
+      "category": "Announcements",
+      "date": "December 5, 2025",
+      "image": "slc_special.jpg",
+      "url": "https://www.pafbla.org"
+    },
+    {
+      "title": "Keystone Leadership Award, 2025–2026",
+      "category": "Opportunities",
+      "date": "August 17, 2025",
+      "image": "keystone_award.jpg",
+      "url": "https://www.pafbla.org"
+    }
+  ]
+}
