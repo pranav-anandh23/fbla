@@ -2,18 +2,21 @@ package com.example.fbla;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
@@ -21,32 +24,54 @@ import java.util.Locale;
 
 public class EventsFragment extends Fragment {
 
+
+    // Class Parameters
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private Calendar cal2;
+    private String mParam1;
+    private String mParam2;
+
+    public EventsFragment() {
+        // Required empty public constructor
+    }
+    public static EventsFragment newInstance(String param1, String param2) {
+        EventsFragment fragment = new EventsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    // Variables
+    private long selectedDateMillis = System.currentTimeMillis();
+
+    // Event Box Instances/Variables
     private RecyclerView recyclerView;
     private EventAdapter adapter;
-    private List<Event> events;
+    CalendarView calendarView;
+    private final List<Event> events = new ArrayList<>();
 
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState
-    ) {
-        return inflater.inflate(R.layout.fragment_events, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Load persisted events
-        events = EventStorage.loadEvents(requireContext());
-
+        // Update Recycler View
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new EventAdapter(events, new EventAdapter.EventActionListener() {
-
             @Override
             public void onEdit(int position) {
                 Event event = events.get(position);
@@ -60,19 +85,29 @@ public class EventsFragment extends Fragment {
 
                 fragment.setEventCreateListener(new EventCreateFragment.EventCreateListener() {
                     @Override
-                    public void onEventCreated(Event e) {
-                        // not used
+                    public void onEventCreated(Event event) {
+                        // not used in edit mode
                     }
 
                     @Override
-                    public void onEventEdited(int pos, Event edited) {
-                        events.set(pos, edited);
-                        sortAndSave();
+                    public void onEventEdited(int position, Event event) {
+                        EventRepository.getAllEvents().set(position, event);
+                        events.set(position, event);
+                        events.sort(Comparator.comparingLong(e -> e.dateMillis));
+                        adapter.notifyDataSetChanged();
+
                     }
                 });
-
                 showDim();
-                openOverlay(fragment);
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slide_in_up,0,  0, R.anim.slide_out_down
+                        )
+                        .add(R.id.overlay_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
 
             @Override
@@ -81,75 +116,110 @@ public class EventsFragment extends Fragment {
                         .setTitle("Delete Event")
                         .setMessage("Are you sure you want to delete this event?")
                         .setPositiveButton("Delete", (d, w) -> {
+                            EventRepository.removeEvent(events.get(position));
                             events.remove(position);
-                            sortAndSave();
+
+                            adapter.notifyDataSetChanged();
                         })
                         .setNegativeButton("Cancel", null)
                         .show();
             }
-        });
+        }, true);
 
         recyclerView.setAdapter(adapter);
 
-        // Header month
-        TextView header = view.findViewById(R.id.eventsHeader2);
+
+        // Update Calendar
+        /* TextView eventsHeader = view.findViewById(R.id.eventsHeader2);
         Calendar cal = Calendar.getInstance();
-        String month = cal.getDisplayName(
+        String currentMonth = cal.getDisplayName(
                 Calendar.MONTH,
                 Calendar.LONG,
                 Locale.getDefault()
         );
-        header.setText("Events in " + month);
+        eventsHeader.setText("Events in " + currentMonth);*/
+        TextView eventsHeader = view.findViewById(R.id.eventsHeader2);
+        eventsHeader.setText("All Events:");
 
-        // Add button
-        Button addBtn = view.findViewById(R.id.button2);
-        addBtn.setOnClickListener(v -> {
+        // Calendar Month Listener
+        calendarView = view.findViewById(R.id.calendarView);
+
+        calendarView.setOnDateChangeListener((cV, year, month, day) -> {
+            cal2 = Calendar.getInstance();
+            cal2.set(year, month, 1, 0, 0, 0);
+            cal2.set(Calendar.MILLISECOND, 0);
+
+            //String currentMonth2 =
+            //eventsHeader.setText("Events in " + currentMonth2);
+        });
+
+        // Event Button
+        Button btnAdd = view.findViewById(R.id.button2);
+        btnAdd.setOnClickListener(v -> {
+            //String selectedDate = getSelectedCalendarDate();
+            showDim();
+
             EventCreateFragment fragment = new EventCreateFragment();
-
             fragment.setEventCreateListener(new EventCreateFragment.EventCreateListener() {
                 @Override
                 public void onEventCreated(Event event) {
                     events.add(event);
-                    sortAndSave();
+                    EventRepository.addEvent(event);
+                    events.sort(Comparator.comparingLong(e -> e.dateMillis));
+                    adapter.notifyDataSetChanged();
+                    Log.d("EVENT CREATED", event.title + " | " + event.description + " | " + event.date + " | " + event.time + " | " + event.location);
                 }
 
                 @Override
                 public void onEventEdited(int position, Event event) {
-                    // not used
+                    // Not used in create mode
                 }
             });
 
-            showDim();
-            openOverlay(fragment);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.anim.slide_in_up,0,  0, R.anim.slide_out_down
+                    )
+
+                    .add(R.id.overlay_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 
-    /* ---------------- HELPERS ---------------- */
 
-    private void sortAndSave() {
-        events.sort(Comparator.comparingLong(e -> e.dateMillis));
-        adapter.notifyDataSetChanged();
-        EventStorage.saveEvents(requireContext(), events);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_events, container, false);
+
     }
 
-    private void openOverlay(Fragment fragment) {
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                        R.anim.slide_in_up, 0,
-                        0, R.anim.slide_out_down
-                )
-                .add(R.id.overlay_container, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
+    /// METHODS -------------------------------------
     private void showDim() {
         View dim = requireActivity().findViewById(R.id.dimView);
-        if (dim != null) {
-            dim.setAlpha(0f);
-            dim.setVisibility(View.VISIBLE);
-            dim.animate().alpha(1f).setDuration(200).start();
-        }
+        dim.setAlpha(0f);
+        dim.setVisibility(View.VISIBLE);
+        dim.animate()
+                .alpha(1f)
+                .setDuration(200)
+                .start();
     }
+
+    private void updateEventsForMonth(long monthStart, long monthEnd) {
+        events.clear();
+
+        for (Event e : EventRepository.getAllEvents()) {
+            if (e.dateMillis >= monthStart && e.dateMillis <= monthEnd) {
+                events.add(e);
+            }
+        }
+
+        events.sort(Comparator.comparingLong(ev -> ev.dateMillis));
+        adapter.notifyDataSetChanged();
+    }
+
 }

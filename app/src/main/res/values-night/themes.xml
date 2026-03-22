@@ -1,7 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.FBLA" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.FBLA" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorSecondary">@color/darkBlue</item>
+        <item name="colorSecondaryContainer">@color/darkBlue</item>
+        <item name="colorOnSecondaryContainer">@android:color/white</item>
     </style>
+
+    <style name="Theme.MyApplication" parent="Theme.FBLA" />
 </resources>

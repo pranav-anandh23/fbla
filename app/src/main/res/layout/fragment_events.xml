@@ -5,15 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventsFragment"
-    >
-
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/eventsHeader2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
 
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
@@ -26,7 +23,6 @@
         app:layout_constraintTop_toBottomOf="@+id/divider2"
         app:layout_constraintVertical_bias="0.027" />
 
-
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -34,8 +30,6 @@
         app:layout_constraintTop_toBottomOf="@+id/eventsDesc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
-
 
 
     <TextView
@@ -51,7 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/eventsDesc"
         android:layout_width="285dp"
@@ -65,7 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventsHeader" />
 
-
     <Button
         android:id="@+id/button2"
         android:layout_width="48dp"
@@ -78,7 +70,6 @@
         app:cornerRadius="16dp"
         app:layout_constraintStart_toEndOf="@+id/eventsDesc"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <View
         android:id="@+id/divider"
@@ -94,7 +85,6 @@
         app:layout_constraintTop_toTopOf="@+id/calendarView"
         app:layout_constraintVertical_bias="1.0" />
 
-
     <View
         android:id="@+id/divider2"
         android:layout_width="409dp"
@@ -108,7 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
         app:layout_constraintVertical_bias="1.0" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecycler"
@@ -124,7 +113,135 @@
         app:layout_constraintTop_toBottomOf="@id/divider2"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EventsFragment"
+        >
+
+
+        <TextView
+            android:id="@+id/eventsHeader2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="310dp"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            app:layout_constraintVertical_bias="0.027" />
+
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/eventsDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
 
+
+        <TextView
+            android:id="@+id/eventsHeader"
+            android:layout_width="165dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:text="Events Calendar"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/eventsDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/eventsDesc"
+            android:layout_width="285dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="20dp"
+            android:text="Manage your FBLA events and reminders"
+            android:textColor="@color/gray"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/calendarView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventsHeader" />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="48dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="36dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="+"
+            app:cornerRadius="16dp"
+            app:layout_constraintStart_toEndOf="@+id/eventsDesc"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/calendarView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/calendarView"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="45dp"
+            android:clipToPadding="false"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    -->
 </androidx.constraintlayout.widget.ConstraintLayout>

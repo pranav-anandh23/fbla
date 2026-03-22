@@ -1,5 +1,5 @@
 package com.example.fbla;
-
+/*
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -59,3 +59,4 @@ public class EventsActivity extends AppCompatActivity {
 
     }
 }
+*/

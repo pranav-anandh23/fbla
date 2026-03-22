@@ -1,132 +1,227 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/event_create_bg">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
 
-        <!-- Header -->
-        <TextView
-            android:text="Add New Event"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <!-- Title -->
-        <EditText
-            android:id="@+id/inputTitle"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Enter event title"
-            android:background="@drawable/card_bg"
-            android:padding="12dp"
-            android:layout_marginTop="12dp" />
 
-        <!-- Date -->
-        <EditText
-            android:id="@+id/inputDate"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="mm/dd/yyyy"
-            android:focusable="false"
-            android:clickable="true"
-            android:background="@drawable/card_bg"
-            android:padding="12dp"
-            android:layout_marginTop="12dp" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/event_create_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="1">
 
-        <!-- Time -->
-        <EditText
-            android:id="@+id/inputTime"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="--:--"
-            android:focusable="false"
-            android:clickable="true"
-            android:background="@drawable/card_bg"
-            android:padding="12dp"
-            android:layout_marginTop="12dp" />
 
-        <!-- Location -->
-        <EditText
-            android:id="@+id/inputLocation"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Enter location"
-            android:background="@drawable/card_bg"
-            android:padding="12dp"
-            android:layout_marginTop="12dp" />
 
-        <!-- Description -->
-        <EditText
-            android:id="@+id/inputDescription"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:hint="Add event description"
-            android:background="@drawable/card_bg"
-            android:padding="12dp"
-            android:layout_marginTop="12dp"
-            android:gravity="top"
-            android:inputType="textMultiLine" />
-
-        <!-- Color chips -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:elevation="12dp">
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/color_chip_blue"/>
+            <!-- Title -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="#CBD5E1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title (required)" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/color_chip_green"/>
+            <!-- Date -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="#CBD5E1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Date (required)"
+                    android:focusable="false"
+                    android:cursorVisible="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/color_chip_purple"/>
+            <!-- Time -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="#CBD5E1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Time (required)"
+                    android:focusable="false"
+                    android:cursorVisible="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/color_chip_orange"/>
+            <!-- Location -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="#CBD5E1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Location (required)" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/color_chip_red"/>
+            <!-- Description (optional) -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="#CBD5E1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description (optional)" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/color_chip_pink"/>
+
+            <!-- Color selection -->
+            <TextView
+                android:text="Choose Color (required)"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:textColor="#64748B"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- COLOR GRID -->
+            <GridLayout
+                android:id="@+id/ll_colors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
+
+                <View
+                    android:id="@+id/color_blue"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/color_chip_blue"
+                    android:tag="#DBEAFE"/>
+
+                <View
+                    android:id="@+id/color_green"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/color_chip_green"
+                    android:tag="#DBFCE7"/>
+
+                <View
+                    android:id="@+id/color_purple"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/color_chip_purple"
+                    android:tag="#F3E8FF"/>
+
+                <View
+                    android:id="@+id/color_orange"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/color_chip_orange"
+                    android:tag="#FFEDD4"/>
+
+                <View
+                    android:id="@+id/color_red"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/color_chip_red"
+                    android:tag="#FFE2E2"/>
+
+                <View
+                    android:id="@+id/color_pink"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/color_chip_pink"
+                    android:tag="#FCE7F3"/>
+            </GridLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:paddingTop="16dp">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    app:cornerRadius="16dp"/>
+
+                <Button
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirm"
+                    android:layout_marginStart="16dp"
+                    app:cornerRadius="16dp"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-        <!-- Save Button -->
-        <Button
-            android:id="@+id/saveEventButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="Save Event"
-            android:textColor="@color/white"
-            android:background="@drawable/action_button_bg"
-            android:layout_marginTop="20dp"/>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

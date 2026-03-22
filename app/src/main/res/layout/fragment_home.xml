@@ -1,132 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue">
+    tools:context=".HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:orientation="vertical">
 
-        <!-- TOP SPACING -->
-        <View
+        <!-- TOP GRADIENT HEADER -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="24dp"/>
-
-        <!-- WELCOME -->
-        <TextView
-            android:id="@+id/welcomeText"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome back!"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
+            android:background="@drawable/home_gradient"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-        <TextView
-            android:id="@+id/chapterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chapter Name"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="28dp" />
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome back, Alex!"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tvHeaderSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lincoln High School Chapter"
+                android:textColor="#DBEAFE"
+                android:textSize="16sp"
+                android:layout_marginTop="3dp" />
+
+            <!-- CARD -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/frosted_card_bg"
+                android:elevation="6dp"
+                android:minHeight="90dp"
+                android:paddingVertical="14dp"
+                android:paddingHorizontal="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Chapter Rank"
+                    android:textColor="#DBEAFE"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#3"
+                        android:textSize="28sp"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="in your state"
+                        android:textSize="14sp"
+                        android:textColor="#DBEAFE" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
         <!-- STATS CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/card_bg"
-            android:orientation="horizontal"
-            android:padding="24dp"
-            android:layout_marginBottom="36dp"
-            android:gravity="center">
+            android:layout_margin="20dp"
+            android:background="@drawable/white_card_bg"
+            android:elevation="6dp"
+            android:minHeight="90dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
 
-            <!-- EVENTS -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Column 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_participation"
+                        app:tint="#003DA5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textSize="26sp"
+                        android:textColor="#000000"
+                        android:layout_marginTop="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Event Participation"
+                        android:textSize="12sp"
+                        android:textColor="#808080"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Column 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Events"
-                    android:textSize="15sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_star"
+                        app:tint="#003DA5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="450"
+                        android:textSize="26sp"
+                        android:textColor="#000000"
+                        android:layout_marginTop="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chapter Points"
+                        android:textSize="12sp"
+                        android:textColor="#808080"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Column 3 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_competition"
+                        app:tint="#003DA5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textSize="26sp"
+                        android:textColor="#000000"
+                        android:layout_marginTop="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Competitions Entered"
+                        android:textSize="12sp"
+                        android:textColor="#808080"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- CHAPTER POINTS -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+        <!-- NEWS -->
+        <TextView
+            android:id="@+id/tvHeaderNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latest News"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chapter Points"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <!-- COMPETITIONS -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Competitions"
-                    android:textSize="15sp" />
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/white_card_bg"
+            android:elevation="6dp"
+            android:minHeight="90dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
         </LinearLayout>
 
         <!-- UPCOMING EVENTS -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upcoming Events"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcomingRecycler"
+        <LinearLayout
+            android:id="@+id/upcomingHeaderContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="32dp" />
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="0dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tvHeaderUpcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upcoming Events"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tvViewAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="View All Events"
+                android:textColor="@color/darkBlue"
+                android:textSize="14sp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/upcomingContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUpcomingEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+</androidx.core.widget.NestedScrollView>
