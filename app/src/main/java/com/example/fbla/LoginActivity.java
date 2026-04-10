@@ -2,6 +2,7 @@ package com.example.fbla;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,9 +29,13 @@ public class LoginActivity extends AppCompatActivity {
 
         session = new UserSessionManager(this);
 
-        // Auto-fill email if remembered
-        if (session.isRemembered()) {
+        Log.d("LOGIN_DEBUG", "onCreate userExists = " + session.userExists() + ", email = " + session.getEmail());
+
+        if (session.userExists()) {
             emailInput.setText(session.getSavedEmail());
+        }
+
+        if (session.isRemembered()) {
             rememberMe.setChecked(true);
         }
 
@@ -49,6 +54,18 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (session.validateLogin(email, password)) {
+                session.saveUser(
+                        session.getName(),
+                        session.getEmail(),
+                        session.getPassword(),
+                        session.getGrade(),
+                        session.getGradYear(),
+                        session.getChapter(),
+                        session.getRegion(),
+                        session.getState(),
+                        rememberMe.isChecked()
+                );
+
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();

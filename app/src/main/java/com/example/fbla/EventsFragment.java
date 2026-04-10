@@ -71,6 +71,10 @@ public class EventsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        events.clear();
+        events.addAll(EventRepository.getAllEvents(requireContext()));
+        events.sort(Comparator.comparingLong(e -> e.dateMillis));
+
         adapter = new EventAdapter(events, new EventAdapter.EventActionListener() {
             @Override
             public void onEdit(int position) {
@@ -91,7 +95,8 @@ public class EventsFragment extends Fragment {
 
                     @Override
                     public void onEventEdited(int position, Event event) {
-                        EventRepository.getAllEvents().set(position, event);
+                        Event oldEvent = events.get(position);
+                        EventRepository.updateEvent(requireContext(), oldEvent, event);
                         events.set(position, event);
                         events.sort(Comparator.comparingLong(e -> e.dateMillis));
                         adapter.notifyDataSetChanged();
@@ -116,7 +121,7 @@ public class EventsFragment extends Fragment {
                         .setTitle("Delete Event")
                         .setMessage("Are you sure you want to delete this event?")
                         .setPositiveButton("Delete", (d, w) -> {
-                            EventRepository.removeEvent(events.get(position));
+                            EventRepository.removeEvent(requireContext(), events.get(position));
                             events.remove(position);
 
                             adapter.notifyDataSetChanged();
@@ -164,7 +169,7 @@ public class EventsFragment extends Fragment {
                 @Override
                 public void onEventCreated(Event event) {
                     events.add(event);
-                    EventRepository.addEvent(event);
+                    EventRepository.addEvent(requireContext(), event);
                     events.sort(Comparator.comparingLong(e -> e.dateMillis));
                     adapter.notifyDataSetChanged();
                     Log.d("EVENT CREATED", event.title + " | " + event.description + " | " + event.date + " | " + event.time + " | " + event.location);
@@ -212,7 +217,7 @@ public class EventsFragment extends Fragment {
     private void updateEventsForMonth(long monthStart, long monthEnd) {
         events.clear();
 
-        for (Event e : EventRepository.getAllEvents()) {
+        for (Event e : EventRepository.getAllEvents(requireContext())) {
             if (e.dateMillis >= monthStart && e.dateMillis <= monthEnd) {
                 events.add(e);
             }

@@ -23,7 +23,6 @@ public class ProfileFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        // reuse activity_profile.xml
         return inflater.inflate(R.layout.activity_profile, container, false);
     }
 
@@ -53,9 +52,15 @@ public class ProfileFragment extends Fragment {
         ((TextView) view.findViewById(R.id.profileState))
                 .setText("State: " + session.getState());
 
+        Button createPost = view.findViewById(R.id.createPostButton);
+        createPost.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), CreatePostActivity.class);
+            startActivity(intent);
+        });
+
         Button logout = view.findViewById(R.id.logoutButton);
         logout.setOnClickListener(v -> {
-            session.clearSession();
+            session.logout();
 
             Intent intent = new Intent(requireContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

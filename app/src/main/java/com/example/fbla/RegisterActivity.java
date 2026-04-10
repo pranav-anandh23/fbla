@@ -134,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                 chapter,
                 region,
                 state,
-                false
+                true
         );
 
         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();

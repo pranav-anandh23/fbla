@@ -1,18 +1,13 @@
 package com.example.fbla;
 
-
-import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.sql.Array;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -39,7 +33,6 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String name, chapterName;
     private List<Event> allEvents;
 
     public HomeFragment() {
@@ -65,11 +58,30 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        TextView tvHeaderTitle = view.findViewById(R.id.tvHeaderTitle);
+
+        UserSessionManager session = new UserSessionManager(requireContext());
+        String fullName = session.getUserName();
+
+        if (fullName != null && !fullName.isEmpty()) {
+            String firstName = fullName.split(" ")[0];
+            tvHeaderTitle.setText("Welcome back, " + firstName + "!");
+        } else {
+            tvHeaderTitle.setText("Welcome back!");
+        }
+
+        loadHomeNews();
         refreshHome();
 
-        // View All Events
         TextView tvViewAll = view.findViewById(R.id.tvViewAll);
         tvViewAll.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager()
@@ -79,24 +91,88 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    private void loadHomeNews() {
+        LinearLayout newsContainer = requireView().findViewById(R.id.newsContainer);
+        newsContainer.removeAllViews();
+
+        List<NewsItem> newsList = new ArrayList<>();
+
+        newsList.add(new NewsItem(
+                true,
+                "Announcements",
+                "2026 SLC General Information",
+                "State Leadership Conference details and registration info",
+                "December 5, 2025",
+                "featured_slc.png",
+                "https://www.pafbla.org"
+        ));
+
+        newsList.add(new NewsItem(
+                false,
+                "Competitions",
+                "2026 SLC Competition Schedules",
+                "Who is eligible to attend and compete",
+                "December 5, 2025",
+                "comp_schedule.png",
+                "https://www.pafbla.org"
+        ));
+
+        newsList.add(new NewsItem(
+                false,
+                "Chapter News",
+                "PA FBLA Updates for Members",
+                "Check the latest announcements, deadlines, and chapter opportunities.",
+                "December 10, 2025",
+                "featured_slc.png",
+                "https://www.pafbla.org"
+        ));
+
+        for (NewsItem item : newsList) {
+            View newsCard = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_home_news, newsContainer, false);
+
+            ImageView image = newsCard.findViewById(R.id.image);
+            TextView category = newsCard.findViewById(R.id.category);
+            TextView title = newsCard.findViewById(R.id.title);
+            TextView description = newsCard.findViewById(R.id.description);
+            TextView date = newsCard.findViewById(R.id.date);
+            TextView readMore = newsCard.findViewById(R.id.readMore);
+
+            category.setText(item.getCategory());
+            title.setText(item.getTitle());
+            description.setText(item.getDescription());
+            date.setText(item.getDate());
+
+            loadImage(item.getImage(), image);
+
+            View.OnClickListener openLink = v -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink()));
+                startActivity(intent);
+            };
+
+            readMore.setOnClickListener(openLink);
+            newsCard.setOnClickListener(openLink);
+
+            newsContainer.addView(newsCard);
+        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    private void loadImage(String fileName, ImageView imageView) {
+        try {
+            InputStream is = requireContext().getAssets().open("news_images/" + fileName);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            imageView.setImageBitmap(bitmap);
+            is.close();
+        } catch (Exception e) {
+            imageView.setImageResource(R.drawable.ic_news);
+        }
     }
 
     private void refreshHome() {
         LinearLayout upcomingContainer = requireView().findViewById(R.id.upcomingContainer);
         upcomingContainer.removeAllViews();
 
-        allEvents = EventRepository.getAllEvents();
+        allEvents = EventRepository.getAllEvents(requireContext());
         long now = System.currentTimeMillis();
 
         List<Event> upcoming = new ArrayList<>();
@@ -111,7 +187,6 @@ public class HomeFragment extends Fragment {
             upcoming = upcoming.subList(0, 3);
         }
 
-        // Logic/Cases
         if (upcoming.isEmpty()) {
             ImageView icon = new ImageView(getContext());
             icon.setImageResource(R.drawable.calendar);
@@ -149,17 +224,14 @@ public class HomeFragment extends Fragment {
                 time.setText("        Time: " + e.time);
                 location.setText("        Location: " + e.location);
 
-                // hide actions container
                 View actionContainer = item.findViewById(R.id.actionContainer);
                 if (actionContainer != null) {
                     actionContainer.setVisibility(View.GONE);
                 }
 
-                // dot color
                 View dot = item.findViewById(R.id.colorDot);
                 dot.getBackground().setTint(Color.parseColor(e.dotColor));
 
-                // background color
                 Drawable bg = item.getBackground();
                 if (bg instanceof LayerDrawable) {
                     LayerDrawable layer = (LayerDrawable) bg;

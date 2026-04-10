@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.InputStream;
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class
+NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_FEATURED = 1;
     private static final int TYPE_SMALL = 0;
