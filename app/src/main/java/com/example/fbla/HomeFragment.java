@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,6 +82,23 @@ public class HomeFragment extends Fragment {
 
         loadHomeNews();
         refreshHome();
+
+        ImageButton aiButton = view.findViewById(R.id.aiButton);
+        aiButton.setOnClickListener(v -> {
+            showDim();
+            AiChatFragment fragment = new AiChatFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.anim.slide_in_up,   // same animation as event creator
+                            0,
+                            0,
+                            R.anim.slide_out_down
+                    )
+                    .add(R.id.overlay_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         TextView tvViewAll = view.findViewById(R.id.tvViewAll);
         tvViewAll.setOnClickListener(v -> {
@@ -167,6 +185,17 @@ public class HomeFragment extends Fragment {
             imageView.setImageResource(R.drawable.ic_news);
         }
     }
+
+    private void showDim() {
+        View dim = requireActivity().findViewById(R.id.dimView);
+        dim.setAlpha(0f);
+        dim.setVisibility(View.VISIBLE);
+        dim.animate()
+                .alpha(1f)
+                .setDuration(200)
+                .start();
+    }
+
 
     private void refreshHome() {
         LinearLayout upcomingContainer = requireView().findViewById(R.id.upcomingContainer);

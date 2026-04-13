@@ -26,7 +26,7 @@
         android:id="@+id/actionBtn"
         android:background="@drawable/action_button"
         android:textColor="@android:color/white"
-        android:text="Download"
+        android:text="Open"
         android:paddingHorizontal="20dp"/>
 
 </LinearLayout>

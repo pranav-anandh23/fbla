@@ -51,7 +51,7 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.ViewHo
         String buttonText =
                 item.type.equalsIgnoreCase("Video") ? "Watch" :
                         item.type.equalsIgnoreCase("Rubric") ? "View Rubric" :
-                                "Download";
+                                "Open";
 
         holder.actionBtn.setText(buttonText);
 
